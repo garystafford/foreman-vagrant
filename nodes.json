@@ -1,0 +1,28 @@
+{
+  "nodes": {
+    "theforeman.example.com": {
+      ":ip": "192.168.35.5",
+      "ports": [
+        {
+          "host": 8443,
+          "guest": 8443,
+          "id": "Foreman Proxy"
+        }
+      ],
+      ":memory": 1024,
+      ":bootstrap": "bootstrap-foreman.sh"
+    },
+    "agent01.example.com": {
+      ":ip": "192.168.35.10",
+      "ports": [],
+      ":memory": 1024,
+      ":bootstrap": "bootstrap-node.sh"
+    },
+    "agent02.example.com": {
+      ":ip": "192.168.35.20",
+      "ports": [],
+      ":memory": 1024,
+      ":bootstrap": "bootstrap-node.sh"
+    }
+  }
+}
