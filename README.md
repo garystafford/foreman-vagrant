@@ -1,7 +1,7 @@
 ## Vagrant Multiple-VM Creation and Configuration
 Automatically provision multiple VMs with Vagrant and VirtualBox. Automatically install, configure, and test
-Puppet Master and Puppet Agents on those VMs. All instructions can be found in my blog post:
-[http://wp.me/p1RD28-1kX](http://wp.me/p1RD28-1kX)
+Foreman and Puppet Agents on those VMs. All instructions can be found in my blog post:
+[TBD](TBD)
 
 
 #### JSON Configuration File
@@ -13,26 +13,15 @@ configuration files for alternate environments since the Vagrantfile is designed
 #### Instructions
 ```
 vagrant up # brings up all VMs
-vagrant ssh puppet.example.com
-
-sudo service puppetmaster status # test that puppet master was installed
-sudo service puppetmaster stop
-sudo puppet master --verbose --no-daemonize
-# Ctrl+C to kill puppet master
-sudo service puppetmaster start
-sudo puppet cert list --all # check for 'puppet' cert
+vagrant ssh theforeman.example.com
 
 # Shift+Ctrl+T # new tab on host
-vagrant ssh node01.example.com # ssh into agent node
+vagrant ssh agent01.example.com # ssh into agent node
 sudo service puppet status # test that agent was installed
-sudo puppet agent --test --waitforcert=60 # initiate certificate signing request (CSR)
+# initiate certificate signing request (CSR)
+sudo puppet agent --test --waitforcert=60
 ```
-Back on the Puppet Master server (puppet.example.com)
-```
-sudo puppet cert list # should see 'node01.example.com' cert waiting for signature
-sudo puppet cert sign --all # sign the agent node(s) cert(s)
-sudo puppet cert list --all # check for signed cert(s)
-```
+
 #### Forwarding Ports
 Used by Vagrant and VirtualBox. To create additional forwarding ports, add them to the 'ports' array. For example:
  ```
