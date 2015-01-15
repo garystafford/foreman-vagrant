@@ -1,20 +1,20 @@
-## Vagrant Multiple-VM Creation and Configuration
+## Foreman-Puppet-Vagrant Multiple-VM Creation and Configuration
 Automatically provision multiple VMs with Vagrant and VirtualBox. Automatically install, configure, and test
-Foreman and Puppet Agents on those VMs. All instructions can be found in my blog post:
-[TBD](TBD)
-
+Foreman and Puppet Agents on those VMs.
 
 #### JSON Configuration File
-The Vagrantfile retrieves multiple VM configurations from a separate `nodes.json` file. All VM configuration is
-contained in the JSON file. You can add additional VMs to the JSON file, following the existing pattern. The
-Vagrantfile will loop through all nodes (VMs) in the `nodes.json` file and create the VMs. You can easily swap
-configuration files for alternate environments since the Vagrantfile is designed to be generic and portable.
+The `Vagrantfile` retrieves multiple VM configurations from a separate `nodes.json` JSON file. All VM configuration is
+contained in that JSON file. You can add additional VMs to the JSON file, following the existing pattern. The
+'Vagrantfile' will loop through all nodes (VMs) in the `nodes.json` file and create the VMs. You can easily swap
+configuration files for alternate environments since the `Vagrantfile` is designed to be generic and portable.
 
 #### Instructions
-```
-vagrant up # brings up all VMs
+```sh
+# start up all VMs
+vagrant up
 vagrant ssh theforeman.example.com
-
+```
+```sh
 # Shift+Ctrl+T # new tab on host
 vagrant ssh agent01.example.com # ssh into agent node
 sudo service puppet status # test that agent was installed
@@ -24,7 +24,8 @@ sudo puppet agent --test --waitforcert=60
 
 #### Forwarding Ports
 Used by Vagrant and VirtualBox. To create additional forwarding ports, add them to the 'ports' array. For example:
- ```
+
+ ```JSON
  "ports": [
         {
           ":host": 1234,
@@ -38,6 +39,7 @@ Used by Vagrant and VirtualBox. To create additional forwarding ports, add them 
         }
       ]
 ```
+
 #### Useful Multi-VM Commands
 The use of the specific <machine> name is optional.
 * `vagrant up <machine>`
@@ -49,4 +51,4 @@ The use of the specific <machine> name is optional.
 * `facter`
 * `sudo tail -50 /var/log/syslog`
 * `sudo tail -50 /var/log/puppet/masterhttp.log`
-* `tail -50 ~/VirtualBox\ VMs/postblog/<machine>/Logs/VBox.log'
+* `tail -50 ~/VirtualBox\ VMs/postblog/<machine>/Logs/VBox.log`
