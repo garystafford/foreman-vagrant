@@ -33,7 +33,6 @@ vagrant up
 ```sh
 # Shift+Ctrl+T # new tab on host
 vagrant ssh agent01.example.com # ssh into agent node
-sudo service puppet status # test that agent was installed
 # initiate certificate signing request (CSR)
 sudo puppet agent --test --waitforcert=60
 ```
@@ -67,6 +66,6 @@ The use of the specific <machine> name is optional.
 * `facter`
 * `sudo tail -50 /var/log/syslog`
 * `sudo tail -50 /var/log/puppet/masterhttp.log`
-* `tail -50 ~/VirtualBox\ VMs/postblog/<machine>/Logs/VBox.log`
-* `sudo cat /var/log/foreman/production.log`
-* `sudo cat /var/log/foreman-installer/foreman-installer.log`
+* `tail -50 ~/VirtualBox\ VMs/<group>/<machine>/Logs/VBox.log`
+* `sudo tail -50 /var/log/foreman/production.log`
+* `sudo tail -50 /var/log/foreman-installer/foreman-installer.log`
