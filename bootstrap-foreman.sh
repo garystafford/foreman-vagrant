@@ -13,13 +13,6 @@ else
     # Update system first
     sudo yum update -y
 
-    # must restart first?
-    # fix Vagrant error - "vboxsf" file system is not available
-    # due to yum update of kernal - 1x fix....
-    #sudo yum install kernel-devel-2.6.32-504.3.3.el6.x86_64 && \
-    #sudo yum -y install gcc && \
-    #sudo /etc/init.d/vboxadd setup
-
     # Install Foreman for CentOS 6
     sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm && \
     sudo yum -y install epel-release http://yum.theforeman.org/releases/1.7/el6/x86_64/foreman-release.rpm && \

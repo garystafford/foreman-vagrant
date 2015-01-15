@@ -9,12 +9,7 @@ else
     # Update system first
     sudo yum update -y
 
-    # fix Vagrant error - "vboxsf" file system is not available
-    # due to yum update of kernal - 1x fix....
-    #sudo yum -y install kernel-devel-2.6.32-504.3.3.el6.x86_64 && \
-    #sudo yum -y install gcc && \
-    #sudo /etc/init.d/vboxadd setup
-
+    # Install Puppet for CentOS 6
     sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm && \
     sudo yum -y install puppet
 
@@ -31,5 +26,8 @@ else
 
     sudo puppet agent --enable
 
-    sudo puppet agent --test --waitforcert=60
+    # Unless you have Foreman autosign certs, each agent will hang on this step until you manually
+    # sign each cert in the Foreman UI (Infrastrucutre -> Smart Proxies -> Certificates -> Sign)
+    # alternative, run manually on each host, after provisioning is complete...
+    #sudo puppet agent --test --waitforcert=60
 fi
