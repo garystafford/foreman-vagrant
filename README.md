@@ -1,11 +1,11 @@
-## Foreman-Puppet-Vagrant Multiple-VM Creation and Configuration
+## Foreman-Puppet-Vagrant  Multiple-VM Creation and Configuration
 Automatically provision multiple VMs with Vagrant and VirtualBox. Automatically install, configure, and test
 Foreman and Puppet Agents on those VMs.
 
 #### JSON Configuration File
 The `Vagrantfile` retrieves multiple VM configurations from a separate `nodes.json` JSON file. All VM configuration is
 contained in that JSON file. You can add additional VMs to the JSON file, following the existing pattern. The
-'Vagrantfile' will loop through all nodes (VMs) in the `nodes.json` file and create the VMs. You can easily swap
+`Vagrantfile` will loop through all nodes (VMs) in the `nodes.json` file and create the VMs. You can easily swap
 configuration files for alternate environments since the `Vagrantfile` is designed to be generic and portable.
 
 #### Instructions
