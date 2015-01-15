@@ -10,8 +10,7 @@ configuration files for alternate environments since the `Vagrantfile` is design
 
 #### Instructions
 ```sh
-# start up all VMs
-vagrant up
+vagrant up # start up all VMs
 vagrant ssh theforeman.example.com
 ```
 ```sh
