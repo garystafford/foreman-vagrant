@@ -6,8 +6,19 @@ if ps aux | grep "/usr/share/foreman" | grep -v grep 2> /dev/null
 then
     echo "Foreman appears to all already be installed. Exiting..."
 else
+    # Configure /etc/hosts file
+    echo "" | sudo tee --append /etc/hosts 2> /dev/null && \
+    echo "192.168.35.5    theforeman.example.com   theforeman" | sudo tee --append /etc/hosts 2> /dev/null
+
     # Update system first
     sudo yum update -y
+
+    # must restart first?
+    # fix Vagrant error - "vboxsf" file system is not available
+    # due to yum update of kernal - 1x fix....
+    #sudo yum install kernel-devel-2.6.32-504.3.3.el6.x86_64 && \
+    #sudo yum -y install gcc && \
+    #sudo /etc/init.d/vboxadd setup
 
     # Install Foreman for CentOS 6
     sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm && \
@@ -19,17 +30,11 @@ else
     # automatically creating the host in Foreman's database
     sudo puppet agent --test --waitforcert=60
 
-    # Configure /etc/hosts file
-    echo "" | sudo tee --append /etc/hosts 2> /dev/null && \
-    echo "192.168.35.5    theforeman.example.com   theforeman" | sudo tee --append /etc/hosts 2> /dev/null
-
-    # Add optional alternate DNS names to /etc/puppet/puppet.conf
-    sudo sed -i 's/.*\[main\].*/&\ndns_alt_names = theforeman,theforeman.example.com/' /etc/puppet/puppet.conf
-
-    # Install some initial puppet modules on Foreman server
+    # Install some optional puppet modules on Foreman server to get started...
     sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-ntp
-    sudo puppet module install -i /etc/puppet/environments/production/modules garethr-docker
     sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-git
     sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-vcsrepo
+    sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-gcc
+    sudo puppet module install -i /etc/puppet/environments/production/modules garethr-docker
     sudo puppet module install -i /etc/puppet/environments/production/modules garystafford-fig
 fi

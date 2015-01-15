@@ -1,4 +1,4 @@
-## Foreman-Puppet-Vagrant  Multiple-VM Creation and Configuration
+## Foreman-Puppet-Vagrant Multiple-VM Creation and Configuration
 Automatically provision multiple VMs with Vagrant and VirtualBox. Automatically install, configure, and test
 Foreman and Puppet Agents on those VMs.
 
@@ -9,10 +9,27 @@ contained in that JSON file. You can add additional VMs to the JSON file, follow
 configuration files for alternate environments since the `Vagrantfile` is designed to be generic and portable.
 
 #### Instructions
+Suggest provisioning Foreman VM first, before agents. It will takes several minutes to create.
 ```sh
-vagrant up # start up all VMs
-vagrant ssh theforeman.example.com
+vagrant up theforeman.example.com
 ```
+Important, when the provisioning is complete, note the results displayed once Foreman is installed!
+They provide the admin login password and URL for the Foreman console.
+```sh
+==> theforeman.example.com:   Success!
+==> theforeman.example.com:   * Foreman is running at https://theforeman.example.com
+==> theforeman.example.com:       Initial credentials are admin / 7x2fpZBWgVEHvzTw
+==> theforeman.example.com:   * Foreman Proxy is running at https://theforeman.example.com:8443
+==> theforeman.example.com:   * Puppetmaster is running at port 8140
+==> theforeman.example.com:   The full log is at /var/log/foreman-installer/foreman-installer.log
+```
+Log into the Foreman web-browser based console. Change the admin account password, and/or set-up your own admin account(s).
+
+Next, build two puppet agent VMs.
+```sh
+vagrant up
+```
+
 ```sh
 # Shift+Ctrl+T # new tab on host
 vagrant ssh agent01.example.com # ssh into agent node
@@ -51,3 +68,5 @@ The use of the specific <machine> name is optional.
 * `sudo tail -50 /var/log/syslog`
 * `sudo tail -50 /var/log/puppet/masterhttp.log`
 * `tail -50 ~/VirtualBox\ VMs/postblog/<machine>/Logs/VBox.log`
+* `sudo cat /var/log/foreman/production.log`
+* `sudo cat /var/log/foreman-installer/foreman-installer.log`
