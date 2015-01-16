@@ -17,6 +17,12 @@
       "ports": [],
       ":memory": 1024,
       ":bootstrap": "bootstrap-node.sh"
+    },
+    "agent03.example.com": {
+      ":ip": "192.168.35.30",
+      "ports": [],
+      ":memory": 1024,
+      ":bootstrap": "bootstrap-node.sh"
     }
   }
 }

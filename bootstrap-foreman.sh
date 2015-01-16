@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Run on VM to bootstrap Foreman server
+# Gary A. Stafford - 01/15/2015
 
 if ps aux | grep "/usr/share/foreman" | grep -v grep 2> /dev/null
 then

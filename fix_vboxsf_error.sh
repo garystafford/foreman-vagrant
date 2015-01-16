@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# Fixes Vagrant error - "vboxsf" file system is not available
+# Due to yum update of kernal on chef/centos-6.5 box
+# Restart boxes (vagrant reload), apply commands below, restart again...
+# Gary A. Stafford - 01/15/2015
+
+#scp fix_vboxsf_error.sh vagrant@192.168.35.30:~/
+
+if ! mount | grep "vboxsf" | grep -v grep 2> /dev/null
+then
+    target_kernel="2.6.32-504.3.3.el6.x86_64"
+    current_kernel="$(uname -r)"
+    echo $current_kernel
+
+if [ $current_kernel == $target_kernel ]
+then
+        sudo yum -y install gcc perl
+        sudo yum -y install kernel-devel-2.6.32-504.3.3.el6.x86_64 && \
+        sudo /etc/init.d/vboxadd setup
+    else
+        echo "Kernels don't match. Update above script to current kernel."
+    fi
+fi
