@@ -25,7 +25,7 @@ else
 
     sudo service puppet stop
     sudo service puppet start
-    
+
     sudo puppet resource service puppet ensure=running enable=true
     sudo puppet agent --enable
 
