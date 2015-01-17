@@ -1,9 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-
-# Builds single Foreman server and multiple Puppet Agent Nodes using JSON config file
-# Author: Gary A. Stafford
+# Builds single Foreman server and
+# multiple Puppet Agent Nodes using JSON config file
+# Gary A. Stafford - 01/15/2015
 
 # read vm and chef configurations from JSON files
 nodes_config = (JSON.parse(File.read("nodes.json")))['nodes']

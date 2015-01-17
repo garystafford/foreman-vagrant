@@ -69,3 +69,4 @@ The use of the specific <machine> name is optional.
 * `tail -50 ~/VirtualBox\ VMs/<group>/<machine>/Logs/VBox.log`
 * `sudo tail -50 /var/log/foreman/production.log`
 * `sudo tail -50 /var/log/foreman-installer/foreman-installer.log`
+* `sudo tail -50 /var/log/foreman-proxy/proxy.log`
