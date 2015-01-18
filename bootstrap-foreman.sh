@@ -28,7 +28,6 @@ else
     sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-ntp
     sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-git
     sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-vcsrepo
-    sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-gcc
     sudo puppet module install -i /etc/puppet/environments/production/modules garethr-docker
     sudo puppet module install -i /etc/puppet/environments/production/modules garystafford-fig
 fi

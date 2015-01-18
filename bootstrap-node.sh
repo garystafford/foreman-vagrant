@@ -29,7 +29,6 @@ else
     sudo puppet resource service puppet ensure=running enable=true
     sudo puppet agent --enable
 
-
     # Unless you have Foreman autosign certs, each agent will hang on this step until you manually
     # sign each cert in the Foreman UI (Infrastrucutre -> Smart Proxies -> Certificates -> Sign)
     # alternative, run manually on each host, after provisioning is complete...
