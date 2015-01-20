@@ -14,10 +14,6 @@ else
     sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm && \
     sudo yum -y install puppet
 
-    # Configure /etc/hosts file
-    echo "" | sudo tee --append /etc/hosts 2> /dev/null && \
-    echo "192.168.35.5    theforeman.example.com   theforeman" | sudo tee --append /etc/hosts 2> /dev/null
-
     # Add agent section to /etc/puppet/puppet.conf (sets run interval to 120 seconds)
     echo "" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
     echo "    server = theforeman.example.com" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \

@@ -8,6 +8,10 @@ contained in that JSON file. You can add additional VMs to the JSON file, follow
 `Vagrantfile` will loop through all nodes (VMs) in the `nodes.json` file and create the VMs. You can easily swap
 configuration files for alternate environments since the `Vagrantfile` is designed to be generic and portable.
 
+### Host entries plugin
+The `Vagrantfile` uses the `vagrant-hostmanager` plugin and makes sure that all entries are consistent between guests
+and also the host itself. The plugin must be installed with `vagrant plugin install vagrant-hostmanager`.
+
 #### Instructions
 Suggest provisioning Foreman VM first, before agents. It will takes several minutes to create.
 ```sh
@@ -54,6 +58,11 @@ Used by Vagrant and VirtualBox. To create additional forwarding ports, add them 
         }
       ]
 ```
+
+#### Errors 
+
+**Error: Unknown configuration section 'hostmanager'.**
+=> **Solution: **Install the `vagrant-hostmanager` plugin with `vagrant plugin install vagrant-hostmanager`
 
 #### Useful Multi-VM Commands
 The use of the specific <machine> name is optional.
