@@ -5,7 +5,13 @@
 # Restart boxes (vagrant reload), apply commands below, restart again...
 # Gary A. Stafford - 01/15/2015
 
-#scp fix_vboxsf_error.sh vagrant@192.168.35.30:~/
+# provisioning script lalready ran with vagrant up
+# vagrant reload agent01.example.com
+# scp fix_vboxsf_error.sh vagrant@agent01.example.com:~/
+# vagrant ssh agent01.example.com
+# sh fix_vboxsf_error.sh
+# exit
+# vagrant reload agent01.example.com
 
 if ! mount | grep "vboxsf" | grep -v grep 2> /dev/null
 then
