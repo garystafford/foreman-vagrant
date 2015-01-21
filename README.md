@@ -59,23 +59,24 @@ Used by Vagrant and VirtualBox. To create additional forwarding ports, add them 
       ]
 ```
 
-#### Errors 
-
+#### Errors
 **Error: Unknown configuration section 'hostmanager'.**
 => **Solution: **Install the `vagrant-hostmanager` plugin with `vagrant plugin install vagrant-hostmanager`
 
 #### Useful Multi-VM Commands
-The use of the specific <machine> name is optional.
+The use of the specific <machine> name is optional in most cases.
 * `vagrant up <machine>`
 * `vagrant reload <machine>`
 * `vagrant destroy -f <machine> && vagrant up <machine>`
 * `vagrant status <machine>`
 * `vagrant ssh <machine>`
 * `vagrant global-status`
-* `facter`
+
+#### Useful Logs for Debugging Project Issues
+Some logs require sudo access
 * `sudo tail -50 /var/log/syslog`
 * `sudo tail -50 /var/log/puppet/masterhttp.log`
-* `tail -50 ~/VirtualBox\ VMs/<group>/<machine>/Logs/VBox.log`
 * `sudo tail -50 /var/log/foreman/production.log`
 * `sudo tail -50 /var/log/foreman-installer/foreman-installer.log`
 * `sudo tail -50 /var/log/foreman-proxy/proxy.log`
+* `tail -50 ~/VirtualBox\ VMs/<group>/<machine>/Logs/VBox.log`
