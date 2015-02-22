@@ -17,6 +17,24 @@
       "ports": [],
       ":memory": 1024,
       ":bootstrap": "bootstrap-node.sh"
+    },
+    "haproxy.example.com": {
+      ":ip": "192.168.35.101",
+      "ports": [],
+      ":memory": 512,
+      ":bootstrap": "bootstrap-node.sh"
+    },
+    "node01.example.com": {
+      ":ip": "192.168.35.121",
+      "ports": [],
+      ":memory": 512,
+      ":bootstrap": "bootstrap-node.sh"
+    },
+    "node02.example.com": {
+      ":ip": "192.168.35.122",
+      "ports": [],
+      ":memory": 512,
+      ":bootstrap": "bootstrap-node.sh"
     }
   }
 }

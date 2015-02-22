@@ -27,4 +27,7 @@ else
     sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-vcsrepo
     sudo puppet module install -i /etc/puppet/environments/production/modules garethr-docker
     sudo puppet module install -i /etc/puppet/environments/production/modules garystafford-fig
+    sudo puppet module install -i /etc/puppet/environments/production/modules jfryman-nginx
+    sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-haproxy
+    sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-apache
 fi
