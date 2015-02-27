@@ -4,37 +4,57 @@
       ":ip": "192.168.35.5",
       "ports": [],
       ":memory": 1024,
+      ":box": "chef/centos-6.5",
       ":bootstrap": "bootstrap-foreman.sh"
     },
     "agent01.example.com": {
       ":ip": "192.168.35.10",
       "ports": [],
       ":memory": 1024,
-      ":bootstrap": "bootstrap-node.sh"
+      ":box": "chef/centos-6.5",
+      ":bootstrap": "bootstrap-node-rhel.sh"
     },
     "agent02.example.com": {
       ":ip": "192.168.35.20",
       "ports": [],
       ":memory": 1024,
-      ":bootstrap": "bootstrap-node.sh"
+      ":box": "chef/centos-6.5",
+      ":bootstrap": "bootstrap-node-rhel.sh"
     },
     "haproxy.example.com": {
       ":ip": "192.168.35.101",
       "ports": [],
       ":memory": 512,
-      ":bootstrap": "bootstrap-node.sh"
+      ":box": "chef/centos-6.5",
+      ":bootstrap": "bootstrap-node-rhel.sh"
     },
     "node01.example.com": {
       ":ip": "192.168.35.121",
       "ports": [],
       ":memory": 512,
-      ":bootstrap": "bootstrap-node.sh"
+      ":box": "chef/centos-6.5",
+      ":bootstrap": "bootstrap-node-rhel.sh"
     },
     "node02.example.com": {
       ":ip": "192.168.35.122",
       "ports": [],
       ":memory": 512,
-      ":bootstrap": "bootstrap-node.sh"
+      ":box": "chef/centos-6.5",
+      ":bootstrap": "bootstrap-node-rhel.sh"
+    },
+    "node03.example.com": {
+      ":ip": "192.168.35.123",
+      "ports": [],
+      ":memory": 512,
+      ":box": "chef/centos-6.5",
+      ":bootstrap": "bootstrap-node-rhel.sh"
+    },
+    "node04.example.com": {
+      ":ip": "192.168.35.124",
+      "ports": [],
+      ":memory": 512,
+      ":box": "ubuntu/trusty64",
+      ":bootstrap": "bootstrap-node-ubuntu.sh"
     }
   }
 }

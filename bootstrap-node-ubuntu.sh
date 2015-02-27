@@ -1,18 +1,31 @@
 #!/bin/sh
 
+# Run on VM to bootstrap Puppet Agent Ubuntu-based Linux nodes
+# Gary A. Stafford - 02/27/2015
+
+#!/bin/sh
+
 # Run on VM to bootstrap Puppet Agent nodes
-# Gary A. Stafford - 01/15/2015
 
 if ps aux | grep "puppet agent" | grep -v grep 2> /dev/null
 then
     echo "Puppet Agent is already installed. Moving on..."
 else
-    # Update system first
-    sudo yum update -y
+    sudo apt-get install -yq puppet
+fi
 
-    # Install Puppet for CentOS 6
-    sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm && \
-    sudo yum -y install puppet
+if cat /etc/crontab | grep puppet 2> /dev/null
+then
+    echo "Puppet Agent is already configured. Exiting..."
+else
+    # Update system first
+    sudo apt-get update -yq && sudo apt-get upgrade -yq
+
+    # Add puppet agent cron job
+    sudo puppet resource cron puppet-agent ensure=present user=root minute=30 \
+        command='/usr/bin/puppet agent --onetime --no-daemonize --splay'
+
+    sudo puppet resource service puppet ensure=running enable=true
 
     # Add agent section to /etc/puppet/puppet.conf (sets run interval to 120 seconds)
     echo "" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \

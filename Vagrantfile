@@ -11,15 +11,16 @@ nodes_config = (JSON.parse(File.read("nodes.json")))['nodes']
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "chef/centos-6.5"
-  config.hostmanager.enabled = true
-  config.hostmanager.manage_host = true
-  config.hostmanager.ignore_private_ip = false
-  config.hostmanager.include_offline = true  
-
   nodes_config.each do |node|
     node_name   = node[0] # name of node
     node_values = node[1] # content of node
+
+    config.vm.box = node_values[':box']
+
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.include_offline = true
 
     config.vm.define node_name do |config|
       # configures all forwarding ports in JSON array

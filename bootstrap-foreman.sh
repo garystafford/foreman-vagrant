@@ -30,4 +30,5 @@ else
     sudo puppet module install -i /etc/puppet/environments/production/modules jfryman-nginx
     sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-haproxy
     sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-apache
+    sudo puppet module install -i /etc/puppet/environments/production/modules puppetlabs-java
 fi
