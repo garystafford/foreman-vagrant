@@ -17,7 +17,7 @@
     "agent02.example.com": {
       ":ip": "192.168.35.20",
       "ports": [],
-      ":memory": 512,
+      ":memory": 1024,
       ":box": "chef/centos-6.5",
       ":bootstrap": "bootstrap-node-rhel.sh"
     },
