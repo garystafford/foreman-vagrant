@@ -8,7 +8,7 @@ then
     echo "Puppet Agent is already installed. Moving on..."
 else
     # Update system first
-    sudo yum update -y
+    #sudo yum update -y
 
     # Install Puppet for CentOS 6
     sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm && \

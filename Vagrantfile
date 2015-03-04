@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node_name   = node[0] # name of node
     node_values = node[1] # content of node
 
-    config.vm.box = node_values[':box']
+    config.vm.box = 'chef/centos-6.5' #node_values[':box']
 
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
