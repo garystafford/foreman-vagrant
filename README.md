@@ -9,6 +9,12 @@ foreman-vagrant requires the vagrant-hostmanager plugin to be installed. You can
 vagrant plugin install vagrant-hostmanager
 ```
 
+The vagrant-vbguest addition plugin is also used to keep the tools updated.
+
+```sh
+vagrant plugin install vagrant-vbguest
+```
+
 #### JSON Configuration File
 The `Vagrantfile` retrieves multiple VM configurations from a separate `nodes.json` JSON file. All VM configuration is
 contained in that JSON file. You can add additional VMs to the JSON file, following the existing pattern. The
