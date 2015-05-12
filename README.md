@@ -2,6 +2,13 @@
 Automatically provision multiple VMs with Vagrant and VirtualBox. Automatically install, configure, and test
 Foreman and Puppet Agents on those VMs.
 
+## Vagrant Plugin
+foreman-vagrant requires the vagrant-hostmanager plugin to be installed. You can install the plugin by running:
+
+```sh
+vagrant plugin install vagrant-hostmanager
+```
+
 #### JSON Configuration File
 The `Vagrantfile` retrieves multiple VM configurations from a separate `nodes.json` JSON file. All VM configuration is
 contained in that JSON file. You can add additional VMs to the JSON file, following the existing pattern. The
