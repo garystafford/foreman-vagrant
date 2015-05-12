@@ -13,7 +13,7 @@ else
 
     # Install Foreman for CentOS 6
     sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm && \
-    sudo yum -y install epel-release http://yum.theforeman.org/releases/1.7/el6/x86_64/foreman-release.rpm && \
+    sudo yum -y install epel-release http://yum.theforeman.org/releases/1.8/el6/x86_64/foreman-release.rpm && \
     sudo yum -y install foreman-installer && \
     sudo foreman-installer
 
