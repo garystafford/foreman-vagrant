@@ -15,7 +15,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node_name   = node[0] # name of node
     node_values = node[1] # content of node
 
-    config.vm.box = 'chef/centos-6.5' #node_values[':box']
+    config.vbguest.auto_update = true
+    config.vbguest.iso_path = "http://download.virtualbox.org/virtualbox/%{version}/VBoxGuestAdditions_%{version}.iso"
+    config.vm.box = 'puppetlabs/centos-6.6-64-puppet' #node_values[':box']
 
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
