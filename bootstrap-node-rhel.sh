@@ -8,10 +8,10 @@ then
     echo "Puppet Agent is already installed. Moving on..."
 else
     # Update system first
-    #sudo yum update -y
+    yum update -y
 
-    # Install Puppet for CentOS 6
-    sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm && \
+    # Install Puppet for CentOS 7
+    sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm && \
     sudo yum -y install puppet
 
     # Add agent section to /etc/puppet/puppet.conf (sets run interval to 120 seconds)
@@ -22,8 +22,8 @@ else
     sudo service puppet stop
     sudo service puppet start
 
-    sudo puppet resource service puppet ensure=running enable=true
-    sudo puppet agent --enable
+    puppet resource service puppet ensure=running enable=true
+    puppet agent --enable
 
     # Unless you have Foreman autosign certs, each agent will hang on this step until you manually
     # sign each cert in the Foreman UI (Infrastrucutre -> Smart Proxies -> Certificates -> Sign)
