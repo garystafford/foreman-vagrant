@@ -4,8 +4,6 @@
 # Gary A. Stafford - 01/15/2015
 # Modified - 08/19/2015
 
-foreman_version='1.9'
-
 if ps aux | grep "/usr/share/foreman" | grep -v grep 2> /dev/null
 then
     echo "Foreman appears to all already be installed. Exiting..."
@@ -13,12 +11,13 @@ else
     # Update system first
     yum update -y
 
-    # Install Foreman for CentOS 7
+    # Install Foreman for CentOS 7 && downgrade Puppet from 4.x to 3.8.2
+    # (older version required for Foreman)
     sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm && \
     sudo yum -y erase puppet-agent && \
     sudo rm -f /etc/yum.repos.d/puppetlabs-pc1.repo && \
     sudo yum clean all && \
-    sudo yum -y install epel-release http://yum.theforeman.org/releases/${foreman_version}/el7/x86_64/foreman-release.rpm && \
+    sudo yum -y install epel-release http://yum.theforeman.org/releases/1.9/el7/x86_64/foreman-release.rpm && \
     sudo yum -y install foreman-installer && \
     sudo foreman-installer
 
@@ -32,6 +31,7 @@ else
     sudo firewall-cmd --permanent --add-port=53/tcp
     sudo firewall-cmd --permanent --add-port=53/udp
     sudo firewall-cmd --permanent --add-port=8443/tcp
+    sudo firewall-cmd --permanent --add-port=8140/tcp
 
     sudo firewall-cmd --reload
     sudo systemctl enable firewalld

@@ -2,10 +2,7 @@
 
 # Run on VM to bootstrap Puppet Agent Ubuntu-based Linux nodes
 # Gary A. Stafford - 02/27/2015
-
-#!/bin/sh
-
-# Run on VM to bootstrap Puppet Agent nodes
+# *** Needs to be fixed like other scripts to avoid Puppet 4.x!!!
 
 if ps aux | grep "puppet agent" | grep -v grep 2> /dev/null
 then
