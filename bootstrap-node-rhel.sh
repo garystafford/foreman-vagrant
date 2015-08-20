@@ -21,13 +21,15 @@ else
     echo sudo puppet --version
 
     # Add agent section to /etc/puppet/puppet.conf (sets run interval to 120 seconds)
+    # https://docs.puppetlabs.com/puppet/3.8/reference/config_about_settings.html
     echo "" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
     echo "    server = theforeman.example.com" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
     echo "    runinterval = 30m" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null
 
     sudo service puppet stop
+    sleep 3
     sudo service puppet start
-
+    sleep 3
     puppet resource service puppet ensure=running enable=true
     puppet agent --enable
 
