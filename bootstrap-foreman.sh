@@ -11,7 +11,7 @@ else
     # Update system first
     yum update -y
 
-    # Install Foreman for CentOS 7 && downgrade Puppet from 4.x to 3.8.2
+    # Install Foreman on CentOS 7 && downgrade Puppet from 4.x to 3.8.2
     # (older version required for Foreman)
     sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm && \
     sudo yum -y erase puppet-agent && \
