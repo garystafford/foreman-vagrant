@@ -1,17 +1,23 @@
-## Foreman-Puppet-Vagrant Multiple-VM Creation and Configuration
-Automatically provision multiple VMs with Vagrant and VirtualBox. Automatically install, configure, and test
-Foreman and Puppet Agents on those VMs.
+### Installing Foreman and Puppet Agent on Multiple VMs Using Vagrant and VirtualBox
+Automatically install and configure Foreman, the open source infrastructure life-cycle management tool, and multiple Puppet Agent VMs using Vagrant and VirtualBox. Project is part of my blog post, [Installing Foreman and Puppet Agent on Multiple VMs Using Vagrant and VirtualBox](http://wp.me/p1RD28-1nb).
 
-## Vagrant Plugin
-foreman-vagrant requires the vagrant-hostmanager plugin to be installed. You can install the plugin by running:
+The ```centos7``` branch was created 8/20/2015 to reflect changes to original blog post in the ```master``` branch. Changes were required to fix incapability issues with the latest versions of Puppet and Foreman. Additionally, the version of CentOS on all VMs was updated from 6.6 to 7.1, and the version of Foreman was updated from 1.7 to 1.9.
 
-```sh
-vagrant plugin install vagrant-hostmanager
+<p><a href="https://programmaticponderings.wordpress.com/?attachment_id=3459" title="New Foreman Hosts" rel="attachment"><img width="620" height="390" src="https://programmaticponderings.files.wordpress.com/2015/08/new-foreman-hosts.png?w=620" alt="New Foreman Hosts"></a></p>
+
+#### Vagrant Plug-ins
+This project requires the Vagrant vagrant-hostmanager plugin to be installed. The Vagrantfile uses the vagrant-hostmanager plugin to automatically ensure all DNS entries are consistent between guests as well as the host, in the `/etc/hosts` file. An example of the modified `/etc/hosts` file is shown below.
+```text
+## vagrant-hostmanager-start id: c472843a-e854-4e58-8a13-856b3b0766f2
+192.168.35.5  theforeman.example.com
+192.168.35.10 agent01.example.com
+192.168.35.20 agent02.example.com
+## vagrant-hostmanager-end
 ```
 
-The vagrant-vbguest addition plugin is also used to keep the tools updated.
-
+This project also requires the Vagrant vagrant-vbguest plugin is also used to keep the vbguest tools updated.
 ```sh
+vagrant plugin install vagrant-hostmanager
 vagrant plugin install vagrant-vbguest
 ```
 
@@ -21,18 +27,14 @@ contained in that JSON file. You can add additional VMs to the JSON file, follow
 `Vagrantfile` will loop through all nodes (VMs) in the `nodes.json` file and create the VMs. You can easily swap
 configuration files for alternate environments since the `Vagrantfile` is designed to be generic and portable.
 
-### Host entries plugin
-The `Vagrantfile` uses the `vagrant-hostmanager` plugin and makes sure that all entries are consistent between guests
-and also the host itself. The plugin must be installed with `vagrant plugin install vagrant-hostmanager`.
 
 #### Instructions
-Suggest provisioning Foreman VM first, before agents. It will takes several minutes to create.
+Provision the Foreman VM first, before the agents. It will takes several minutes to fully provision the VM.
 ```sh
 vagrant up theforeman.example.com
 ```
-Important, when the provisioning is complete, note the results displayed once Foreman is installed!
-They provide the admin login password and URL for the Foreman console.
-```sh
+Important, when the provisioning is complete, note the results displayed once Foreman is installed. They provide the admin login password and URL for the Foreman console. Example output below.
+```text
 ==> theforeman.example.com:   Success!
 ==> theforeman.example.com:   * Foreman is running at https://theforeman.example.com
 ==> theforeman.example.com:       Initial credentials are admin / 7x2fpZBWgVEHvzTw
@@ -40,22 +42,33 @@ They provide the admin login password and URL for the Foreman console.
 ==> theforeman.example.com:   * Puppetmaster is running at port 8140
 ==> theforeman.example.com:   The full log is at /var/log/foreman-installer/foreman-installer.log
 ```
-Log into the Foreman web-browser based console. Change the admin account password, and/or set-up your own admin account(s).
+Log into the Foreman web-browser based console. Change the `admin` account password, and/or set-up your own `admin` account(s).
 
-Next, build two puppet agent VMs.
+Next, build two puppet agent VMs. Again, it will takes several minutes to fully provision the two VMs.
 ```sh
 vagrant up
 ```
 
+Next, complete the CSR process. Read the [blog post](http://wp.me/p1RD28-1nb) for complete instructions.
 ```sh
-# Shift+Ctrl+T # new tab on host
-vagrant ssh agent01.example.com # ssh into agent node
+# ssh into first agent node
+vagrant ssh agent01.example.com
 # initiate certificate signing request (CSR)
 sudo puppet agent --test --waitforcert=60
+# sign certificate within foreman to complete CSR
+```
+  
+```sh
+exit
+# ssh into second agent node
+vagrant ssh agent02.example.com
+# initiate certificate signing request (CSR)
+sudo puppet agent --test --waitforcert=60
+# sign certificate within foreman to complete CSR
 ```
 
 #### Forwarding Ports
-Used by Vagrant and VirtualBox. To create additional forwarding ports, add them to the 'ports' array. For example:
+To expose forwarding ports, add them to the 'ports' array. For example:
 
  ```JSON
  "ports": [
@@ -92,4 +105,4 @@ Some logs require sudo access
 * `sudo tail -50 /var/log/foreman/production.log`
 * `sudo tail -50 /var/log/foreman-installer/foreman-installer.log`
 * `sudo tail -50 /var/log/foreman-proxy/proxy.log`
-* `tail -50 ~/VirtualBox\ VMs/<group>/<machine>/Logs/VBox.log`
+* `tail -50 ~/VirtualBox\ VMs/<machine>/Logs/VBox.log`
