@@ -24,7 +24,7 @@ else
 
     sudo puppet resource service puppet ensure=running enable=true
 
-    # Add agent section to /etc/puppet/puppet.conf (sets run interval to 120 seconds)
+    # Add agent section to /etc/puppet/puppet.conf (set run interval to 120s for testing)
     echo "" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
     echo "[agent]" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
     echo "server=theforeman.example.com" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
@@ -38,6 +38,6 @@ else
 
     # Unless you have Foreman autosign certs, each agent will hang on this step until you manually
     # sign each cert in the Foreman UI (Infrastrucutre -> Smart Proxies -> Certificates -> Sign)
-    # alternative, run manually on each host, after provisioning is complete...
+    # Aternative, run manually on each host, after provisioning is complete...
     #sudo puppet agent --test --waitforcert=60
 fi
