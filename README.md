@@ -33,7 +33,7 @@ Provision the Foreman VM first, before the agents. It will takes several minutes
 ```sh
 vagrant up theforeman.example.com
 ```
-Important, when the provisioning is complete, note the results displayed once Foreman is installed. They provide the admin login password and URL for the Foreman console. Example output below.
+Important, when the provisioning is complete, note the output from Vagrant. The output provides the `admin` login password and URL for the Foreman console. Example output below.
 ```text
 ==> theforeman.example.com:   Success!
 ==> theforeman.example.com:   * Foreman is running at https://theforeman.example.com
@@ -42,7 +42,7 @@ Important, when the provisioning is complete, note the results displayed once Fo
 ==> theforeman.example.com:   * Puppetmaster is running at port 8140
 ==> theforeman.example.com:   The full log is at /var/log/foreman-installer/foreman-installer.log
 ```
-Log into the Foreman web-browser based console. Change the `admin` account password, and/or set-up your own `admin` account(s).
+Log into Foreman's browser-based console using the information provided in the output from Vagrant (example above). Change the `admin` account password, and/or set-up your own `admin` account(s).
 
 Next, build two puppet agent VMs. Again, it will takes several minutes to fully provision the two VMs.
 ```sh
