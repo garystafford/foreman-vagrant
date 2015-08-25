@@ -1,7 +1,7 @@
 ### Installing Foreman and Puppet Agent on Multiple VMs Using Vagrant and VirtualBox
 Automatically install and configure Foreman, the open source infrastructure life-cycle management tool, and multiple Puppet Agent VMs using Vagrant and VirtualBox. Project is part of my blog post, [Installing Foreman and Puppet Agent on Multiple VMs Using Vagrant and VirtualBox](http://wp.me/p1RD28-1nb).
 
-The ```centos7``` branch was created 8/20/2015 to reflect changes to original blog post in the ```master``` branch. Changes were required to fix incapability issues with the latest versions of Puppet and Foreman. See http://theforeman.org/manuals/1.9/index.html#3.1.2PuppetCompatibility for details. Additionally, the version of CentOS on all VMs was updated from 6.6 to 7.1 and the version of Foreman was updated from 1.7 to 1.9.
+The ```centos7``` branch was created 8/20/2015 to reflect changes to original blog post in the ```master``` branch. Changes were required to fix incapability issues with the latest versions of Puppet and Foreman. For details, see [Puppet Compatibility](http://theforeman.org/manuals/1.9/index.html#3.1.2PuppetCompatibility). Additionally, the version of CentOS on all VMs was updated from 6.6 to 7.1 and the version of Foreman was updated from 1.7 to 1.9.
 
 <p><a href="https://programmaticponderings.wordpress.com/?attachment_id=3459" title="New Foreman Hosts" rel="attachment"><img width="620" height="390" src="https://programmaticponderings.files.wordpress.com/2015/08/new-foreman-hosts.png?w=620" alt="New Foreman Hosts"></a></p>
 
@@ -50,7 +50,7 @@ Log into Foreman's browser-based console using the information provided in the o
 
 Next, build two puppet agent VMs. Again, it will takes several minutes to fully provision the two VMs.
 ```sh
-vagrant up
+vagrant up agent01.example.com agent02.example.com
 ```
 
 Next, complete the CSR process. Read the [blog post](http://wp.me/p1RD28-1nb) for complete instructions.
@@ -58,18 +58,19 @@ Next, complete the CSR process. Read the [blog post](http://wp.me/p1RD28-1nb) fo
 # ssh into first agent node
 vagrant ssh agent01.example.com
 # initiate certificate signing request (CSR)
-sudo puppet agent --test --waitforcert=60
+sudo puppet agent -t -w=60
 # sign certificate within foreman to complete CSR
-```
-  
-```sh
+
 exit
+
 # ssh into second agent node
 vagrant ssh agent02.example.com
 # initiate certificate signing request (CSR)
-sudo puppet agent --test --waitforcert=60
+sudo puppet agent -t -w=60
 # sign certificate within foreman to complete CSR
 ```
+
+You can always force a puppet run on a node using `sudo puppet agent -t`.
 
 #### Forwarding Ports
 To expose forwarding ports, add them to the 'ports' array. For example:
