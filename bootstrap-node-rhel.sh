@@ -19,14 +19,14 @@ else
     sudo yum -y erase puppet-agent && \
     sudo rm -f /etc/yum.repos.d/puppetlabs-pc1.repo && \
     sudo yum clean all && \
-    sudo yum -y install puppet
+    sudo yum -y install puppet nano nmap-ncat
 
     # Add agent section to /etc/puppet/puppet.conf
-    # Easier to set run interval to 120s for testing (normally 30m)
+    # Easier to set run interval to 120s for testing (reset to 30m for normal use)
     # https://docs.puppetlabs.com/puppet/3.8/reference/config_about_settings.html
     echo "" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
     echo "    server = theforeman.example.com" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
-    echo "    runinterval = 30m" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null
+    echo "    runinterval = 120s" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null
 
     sudo service puppet stop
     #sudo service puppet start

@@ -26,7 +26,7 @@ then
     echo "Foreman appears to all already be installed. Exiting..."
 else
     sudo yum -y install epel-release http://yum.theforeman.org/releases/1.9/el7/x86_64/foreman-release.rpm && \
-    sudo yum -y install foreman-installer && \
+    sudo yum -y install foreman-installer nano nmap-ncat && \
     sudo foreman-installer
 
 
