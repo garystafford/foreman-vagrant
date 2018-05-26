@@ -18,8 +18,8 @@
       ":ip": "192.168.35.20",
       "ports": [],
       ":memory": 1024,
-      ":box": "puppetlabs/centos-7.0-64-puppet",
-      ":bootstrap": "bootstrap-node-rhel.sh"
+      ":box": "puppetlabs/ubuntu-16.04-64-puppet",
+      ":bootstrap": "bootstrap-node-ubuntu.sh"
     }
   }
 }
