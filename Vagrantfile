@@ -16,11 +16,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node_name   = node[0] # name of node
     node_values = node[1] # content of node
 
-    config.vbguest.auto_update = true
-    config.vbguest.iso_path = "http://download.virtualbox.org/virtualbox/%{version}/VBoxGuestAdditions_%{version}.iso"
+    #Disabled by default to speed up deployment, uncomment to update the vbguest
+    #config.vbguest.auto_update = true
+    #config.vbguest.iso_path = "http://download.virtualbox.org/virtualbox/%{version}/VBoxGuestAdditions_%{version}.iso"
     
-    config.vm.box = node_values[':box']
-
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
     config.hostmanager.ignore_private_ip = false
@@ -36,12 +35,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           id:    port[':id']
       end
 
+      config.vm.box = node_values[':box']     #to use multiple bootstrap, based on nodes.json
       config.vm.hostname = node_name
       config.vm.network :private_network, ip: node_values[':ip']
 
       config.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--memory", node_values[':memory']]
         vb.customize ["modifyvm", :id, "--name", node_name]
+        # to save space and spin up faster
+        vb.linked_clone = true
       end
 
       config.vm.provision :shell, :path => node_values[':bootstrap']

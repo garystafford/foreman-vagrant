@@ -2,21 +2,25 @@
 
 # Run on VM to bootstrap Puppet Agent Ubuntu-based Linux nodes
 # Gary A. Stafford - 02/27/2015
-# *** Needs to be fixed like other scripts to avoid Puppet 4.x!!!
+# Modified to use Puppet 7.x - 01/17/2023
 
 if ps aux | grep "puppet agent" | grep -v grep 2> /dev/null
 then
     echo "Puppet Agent is already installed. Moving on..."
 else
-    sudo apt-get install -yq puppet
+    wget https://apt.puppetlabs.com/puppet7-release-$(lsb_release -cs).deb
+    sudo dpkg -i puppet7-release-$(lsb_release -cs).deb
+    sudo apt-get update -yq
+    sudo apt-get install -yq puppet-agent
+    sudo ln -s /opt/puppetlabs/bin/puppet /usr/sbin/puppet
 fi
 
 if cat /etc/crontab | grep puppet 2> /dev/null
 then
     echo "Puppet Agent is already configured. Exiting..."
 else
-    # Update system first
-    sudo apt-get update -yq && sudo apt-get upgrade -yq
+    # Update system first (commented to speed up the deployment)
+    #sudo apt-get update -yq && sudo apt-get upgrade -yq
 
     # Add puppet agent cron job
     sudo puppet resource cron puppet-agent ensure=present user=root minute=30 \
@@ -24,11 +28,11 @@ else
 
     sudo puppet resource service puppet ensure=running enable=true
 
-    # Add agent section to /etc/puppet/puppet.conf (set run interval to 120s for testing)
-    echo "" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
-    echo "[agent]" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
-    echo "server=theforeman.example.com" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null && \
-    echo "runinterval=30m" | sudo tee --append /etc/puppet/puppet.conf 2> /dev/null
+    # Add agent section to /etc/puppetlabs/puppet/puppet.conf (set run interval to 120s for testing)
+    echo "" | sudo tee --append /etc/puppetlabs/puppet/puppet.conf 2> /dev/null && \
+    echo "[agent]" | sudo tee --append /etc/puppetlabs/puppet/puppet.conf 2> /dev/null && \
+    echo "server=theforeman.example.com" | sudo tee --append /etc/puppetlabs/puppet/puppet.conf 2> /dev/null && \
+    echo "runinterval=30m" | sudo tee --append /etc/puppetlabs/puppet/puppet.conf 2> /dev/null
 
     sudo service puppet stop
     #sudo service puppet start
