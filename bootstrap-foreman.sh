@@ -6,29 +6,40 @@
 # Downgrade Puppet on box from 4.x to 3.x for Foreman 1.9 
 # http://theforeman.org/manuals/1.9/index.html#3.1.2PuppetCompatibility
 
-# Update system first
-sudo yum update -y
+#ID=$(cat /etc/os-release | awk -F= '/^ID=/{print $2}' | tr -d '"')
+VERS=$(cat /etc/os-release | awk -F= '/^VERSION_ID=/{print $2}' | tr -d '"' |cut -d \. -f1)
 
-if puppet agent --version | grep "3." | grep -v grep 2> /dev/null
+# Update system first (commented to speed up the deployment)
+#sudo yum update -y
+
+if puppet agent --version | grep "7." | grep -v grep 2> /dev/null
 then
     echo "Puppet Agent $(puppet agent --version) is already installed. Moving on..."
 else
     echo "Puppet Agent $(puppet agent --version) installed. Replacing..."
 
-    sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm && \
-    sudo yum -y erase puppet-agent && \
+    sudo rpm -Uvh https://yum.puppet.com/puppet7-release-el-${VERS}.noarch.rpm && \
+    sudo yum remove puppet-agent -y && \
     sudo rm -f /etc/yum.repos.d/puppetlabs-pc1.repo && \
-    sudo yum clean all
+    sudo yum clean all && \
+    sudo yum -y install puppet
+    sudo ln -s /opt/puppetlabs/bin/puppet /usr/sbin/puppet
 fi
 
 if ps aux | grep "/usr/share/foreman" | grep -v grep 2> /dev/null
 then
     echo "Foreman appears to all already be installed. Exiting..."
 else
-    sudo yum -y install epel-release http://yum.theforeman.org/releases/1.9/el7/x86_64/foreman-release.rpm && \
+    #get rid off an issue with the foreman-installer related to DNS
+    sudo sed -i "s/127.0.1.1/#127.0.1.1/g" /etc/hosts 
+
+    sudo yum -y install epel-release http://yum.theforeman.org/releases/3.5/el${VERS}/x86_64/foreman-release.rpm && \
+    sudo dnf module reset postgresql ruby foreman -y && \
+    sudo dnf module enable ruby:2.7 postgresql:12 foreman:el8 -y && \
     sudo yum -y install foreman-installer nano nmap-ncat && \
     sudo foreman-installer
 
+    sudo systemctl start firewalld
 
     # Set-up firewall
     # https://www.digitalocean.com/community/tutorials/additional-recommended-steps-for-new-centos-7-servers

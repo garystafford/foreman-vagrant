@@ -67,7 +67,13 @@ exit
 vagrant ssh agent02.example.com
 # initiate certificate signing request (CSR)
 sudo puppet agent -t -w=60
+
 # sign certificate within foreman to complete CSR
+vagrant ssh theforeman.example.com 
+sudo /opt/puppetlabs/bin/puppetserver ca sign --all
+# more details on https://www.puppet.com/docs/puppet/7/install_agents.html#agent_primary_server_connections
+
+# be sure to re-run the 'sudo puppet agent -t' on the agent nodes, as per above command.
 ```
 
 You can always force a puppet run on a node using `sudo puppet agent -t`.
